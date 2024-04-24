@@ -21,10 +21,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.hamcrest.core.Is.is;
@@ -125,7 +122,7 @@ class BeerControllerTest {
     void getBeerById() throws Exception {
         Beer test = beerServiceImpl.listBeers().getFirst();
 
-        given(beerService.getBeerById(test.getId())).willReturn(test);
+        given(beerService.getBeerById(test.getId())).willReturn(Optional.of(test));
 
         mockMvc.perform(get(BeerController.BEER_PATH_ID, test.getId())
                 .accept(MediaType.APPLICATION_JSON))
@@ -146,5 +143,14 @@ class BeerControllerTest {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON)
                 )
                 .andExpect(jsonPath("$.length()", is(3 )));
+    }
+
+    @Test
+    void getBeerByIdNotFound() throws Exception {
+
+        given(beerService.getBeerById(any(UUID.class))).willThrow(NotFoundException.class);
+
+        mockMvc.perform(get(BeerController.BEER_PATH_ID, UUID.randomUUID()))
+                .andExpect(status().isNotFound());
     }
 }
