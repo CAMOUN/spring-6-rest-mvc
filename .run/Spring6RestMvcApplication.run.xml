@@ -1,0 +1,18 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Spring6RestMvcApplication" type="Application" factoryName="Application" nameIsGenerated="true">
+    <envs>
+      <env name="spring_profiles_active" value="localmysql" />
+    </envs>
+    <option name="MAIN_CLASS_NAME" value="guru.springframework.spring6restmvc.Spring6RestMvcApplication" />
+    <module name="spring-6-rest-mvc" />
+    <extension name="coverage">
+      <pattern>
+        <option name="PATTERN" value="guru.springframework.spring6restmvc.*" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+    </extension>
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
